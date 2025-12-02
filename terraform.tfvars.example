@@ -1,0 +1,12 @@
+aws_region = "ap-south-1"
+environment = "prod"
+cluster_name = "eks-prod-cluster"
+vpc_cidr = "10.0.0.0/16"
+public_subnet_cidrs = ["10.0.0.0/24", "10.0.1.0/24"]
+private_subnet_cidrs = ["10.0.2.0/24", "10.0.3.0/24"]
+node_instance_types = ["t3.medium"]
+node_min_size = 2
+node_max_size = 4
+node_desired_size = 2
+ssh_key_name = ""   # recommended blank; prefer SSM
+enable_private_endpoint = true
