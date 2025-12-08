@@ -122,77 +122,45 @@ Install these on your local machine:
 
 ---
 
-## ⚙️ Terraform Variables Example
+## ⚙️ Terraform Execution
 
-### `terraform.tfvars`
+### 
 ```hcl
-region                = "ap-south-1"
-cluster_name          = "eks-prod-cluster"
-vpc_cidr              = "10.0.0.0/16"
-
-public_subnet_cidrs   = ["10.0.0.0/24", "10.0.1.0/24"]
-private_subnet_cidrs  = ["10.0.2.0/24", "10.0.3.0/24"]
-
-bastion_instance_type = "t3.micro"
-node_instance_type    = "t3.medium"
 🚀 Deployment Steps
 Step 1 — Initialize Terraform
-bash
-Copy code
 terraform init
+
 Step 2 — Validate & Plan
-bash
-Copy code
 terraform validate
 terraform plan -out plan.tfplan
+
 Step 3 — Apply
-bash
-Copy code
 terraform apply
+
 ⏳ Takes around 15–30 minutes to create EKS + Nodegroups.
 
 🖥️ Step 4 — Connect to Bastion (via SSM)
 From your laptop:
-
-bash
-Copy code
 aws ssm start-session --target <bastion-instance-id> --region ap-south-1
+
 🧩 Step 5 — Install kubectl on Bastion
-bash
-Copy code
 sudo curl -L -o /usr/local/bin/kubectl \
 https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.0/2024-10-10/bin/linux/amd64/kubectl
-
 sudo chmod +x /usr/local/bin/kubectl
 kubectl version --client
+
 🔧 Step 6 — Install AWS CLI v2 (Required for EKS Authentication)
-bash
-Copy code
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install --update
 aws --version
 Configure AWS credentials:
-
-bash
-Copy code
 aws configure
+
 🔐 Step 7 — Generate kubeconfig (Inside Bastion)
-bash
-Copy code
 aws eks update-kubeconfig --region ap-south-1 --name eks-prod-cluster
 Test connection:
-bash
-Copy code
 kubectl get nodes
 kubectl get pods -A
-arduino
-Copy code
 kubectl get nodes
 kubectl get pods -A
-If you want, I can also add:
-
-✅ Troubleshooting section
-✅ Architecture PNG diagram
-✅ CI/CD deployment steps
-✅ Badges for Terraform/AWS/EKS
